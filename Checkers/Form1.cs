@@ -204,7 +204,7 @@ namespace Assessment_Task_2
                         clickedPictureBox.Name = clickedPictureBox.Name.Replace("b", "g");
                     }
 
-                    // Delete original checker grrr
+                    // Delete original checker 
                     pictureBoxes[x, y].Image = null;
 
                     // Are we killing another checker?
