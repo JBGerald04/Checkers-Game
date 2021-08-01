@@ -89,27 +89,27 @@ namespace Assessment_Task_2
 
         private void Play_Click(object sender, EventArgs e)
         {
-            //panel1.Visible = false;
+            panel1.Visible = false;
         }
 
         private void Play_MouseHover(object sender, EventArgs e)
         {
             Label l = sender as Label;
             l.ForeColor = Color.Black;
-            //panel1.BackColor = Color.White;
+            panel1.BackColor = Color.White;
         }
 
         private void Play_MouseLeave(object sender, EventArgs e)
         {
             Label l = sender as Label;
             l.ForeColor = Color.White;
-            //panel1.BackColor = Color.Black;
+            panel1.BackColor = Color.Black;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //panel1.Parent = this;
-            //panel1.BringToFront();
+            panel1.Parent = this;
+            panel1.BringToFront();
             SetupPlayButton();
             GenerateCheckerBoard();
         }
@@ -136,19 +136,11 @@ namespace Assessment_Task_2
                 if (player == color)
                 {
                     lastCheckerClicked = clickedPictureBox.Name;
-                    if (player == "r")
-                    {
-                        direction = 1;
-                    }
-                    if (player == "g")
-                    {
-                        direction = -1;
-                    }
+                    if (player == "r") direction = 1;
+
                     // Highlight move option to the right.
                     try
                     {
-                        rightMoveCoord = "";
-                        killCoord = "";
                         if (pictureBoxes[x + direction, y + 1].Image == null)  //Normal move forward
                         {
                             pictureBoxes[x + direction, y + 1].Image = Properties.Resources.b;
@@ -169,8 +161,6 @@ namespace Assessment_Task_2
                     // Highlight the option to the left
                     try
                     {
-                        leftMoveCoord = "";
-                        killCoord = "";
                         if (pictureBoxes[x + direction, y - 1].Image == null)
                         {
                             pictureBoxes[x + direction, y - 1].Image = Properties.Resources.b;
@@ -224,15 +214,15 @@ namespace Assessment_Task_2
                         int killY = Convert.ToInt32(killCoord.Split(' ')[1]);
 
                         // If the coord has less than 2 spaces, there is no kill
- 
-                        //if (pictureBoxes[killX, killY].Image != null && x == x + 2)
-                        //{
-                        //    pictureBoxes[killX, killY].Image = null;
-                        //}
+                        if (Math.Abs(y - killY) < 2)
+                        {
 
-                        pictureBoxes[killX, killY].Image = null;
+                            return;
+                        }
+
 
                         pictureBoxes[x, y].Image = null;
+                        //pictureBoxes[killX, killY].Image = null;
                         if (killCoord.Split(' ')[2] == "r") red++;
                         else green++;
                         labelp1.Text = green + "";
@@ -257,14 +247,8 @@ namespace Assessment_Task_2
 
         private void SwapPlayer()
         {
-            if (color == "r")
-            {
-                color = "g";
-            }
-            else
-            {
-                color = "r";
-            }
+            if (color == "r") color = "g";
+            else color = "r";
         }
 
         private void Checker_MouseHover(object sender, EventArgs e)
@@ -314,9 +298,9 @@ namespace Assessment_Task_2
 
         private void SetupPlayButton()
         {
-            //play.Click += Play_Click;
-            //play.MouseHover += Play_MouseHover;
-            //play.MouseLeave += Play_MouseLeave;
+            play.Click += Play_Click;
+            play.MouseHover += Play_MouseHover;
+            play.MouseLeave += Play_MouseLeave;
         }
 
         public void Why()
