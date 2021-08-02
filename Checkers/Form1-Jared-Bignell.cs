@@ -18,26 +18,70 @@ namespace Assessment_Task_2
         }
         int rows;
         PictureBox[,] pictureBoxes;
-        string checker = "SS", lastCheckerClicked = "", rightMoveCoord = "", leftMoveCoord = "", killCoord = "";
-        int SFCount, SSCount;
-        private void label4_Click(object sender, EventArgs e)
+        string color = "r", lastCheckerClicked = "", rightMoveCoord = "", leftMoveCoord = "", killCoord = "";
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Player1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                TextBox t = sender as TextBox;
+                if (t.Text != "" && Player1.Text != Player2.Text)
+                {
+                    t.ReadOnly = true;
+                    if (t.Name == "Player2")
+                        t.BackColor = Color.Green;
+                    else
+                        t.BackColor = Color.Red;
+                    t.ForeColor = Color.White;
+                }
+                else
+                {
+                    if (t.Text == "")
+                        MessageBox.Show("Players name can't be blank!");
+                    if (Player1.Text == Player2.Text)
+                        MessageBox.Show("Both player's can't have the same name!");
+                }
+            }
+        }
+
+        private void label4_Click(object sende , EventArgs e)
         {
             W.Visible = false;
             for (int h = 0; h < rows; h++)
                 for (int l = 0; l < rows; l++)
                 {
-                    if (h < (rows / 2) - 1 && pictureBoxes[h, l].BackColor == Color.Black) { pictureBoxes[h, l].Image = Properties.Resources.r;pictureBoxes[h, 1].SizeMode = PictureBoxSizeMode.StretchImage; pictureBoxes[h, l].Name = h + " " + l + " SS"; }
+                    if (h < (rows / 2) - 1 && pictureBoxes[h, l].BackColor == Color.Black) { pictureBoxes[h, l].Image = Properties.Resources.r;pictureBoxes[h, 1].SizeMode = PictureBoxSizeMode.StretchImage; pictureBoxes[h, l].Name = h + " " + l + " r"; }
                     else if (h > (rows / 2) && pictureBoxes[h, l].BackColor == Color.Black)
                     {
-                        pictureBoxes[h, l].Image = Properties.Resources.g; pictureBoxes[h, l].Name = h + " " + l + " SF";
+                        pictureBoxes[h, l].Image = Properties.Resources.g; pictureBoxes[h, l].Name = h + " " + l + " g";
                     }
                     if (h == ((rows / 2) - 1) || h == (rows / 2)) pictureBoxes[h, l].Image = null;
                 }
-            pictureBox1.Text = "0";
-            SSDeathCount.Text = "0";
-            SSCount = 0;
-            SFCount = 0;
+            labelp1.Text = "0";
+            labelp2.Text = "0";
+            Player1.ReadOnly = false;
+            Player2.ReadOnly = false;
+            Player1.Text = "";
+            Player2.Text = "";
+            Player1.BackColor = Color.White;
+            Player2.BackColor = Color.White;
+            Player1.ForeColor = Color.Black;
+            Player2.ForeColor = Color.Black;
+            red = 0;
+            green = 0;
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        int green = 0, red = 0;
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -59,15 +103,22 @@ namespace Assessment_Task_2
         {
             Label l = sender as Label;
             l.ForeColor = Color.White;
+            //panel1.BackColor = Color.Black;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //panel1.Parent = this;
+            //panel1.BringToFront();
+            SetupPlayButton();
             GenerateCheckerBoard();
         }
 
         private void Checker_Click(object sender, EventArgs e)
         {
+            
+            if (Player1.ReadOnly && Player2.ReadOnly)
+            {
                 PictureBox clickedPictureBox = sender as PictureBox;
 
                 if (clickedPictureBox.Image == null)
@@ -82,16 +133,12 @@ namespace Assessment_Task_2
                 Why();
 
                 // Check checker clicked was the correct colour for the current player
-                if (player == checker)
+                if (player == color)
                 {
                     lastCheckerClicked = clickedPictureBox.Name;
-                    if (player == "SS")
+                    if (player == "r")
                     {
                         direction = 1;
-                    }
-                    if (player == "SF")
-                    {
-                        direction = -1;
                     }
                     // Highlight move option to the right.
                     try
@@ -137,84 +184,89 @@ namespace Assessment_Task_2
                 // Check if the player chose to move
                 else if (player == "b")
                 {
-                    SwapPlayer();
-                    x = Convert.ToInt32(lastCheckerClicked.Split(' ')[0]);
-                    y = Convert.ToInt32(lastCheckerClicked.Split(' ')[1]);
-                    player = lastCheckerClicked.Split(' ')[2];
-                    rightMoveCoord = "";
-                    leftMoveCoord = "";
-
-                    // Move SeaShell checker
-                    if (player == "SS")
-                    {
-                        clickedPictureBox.Image = Properties.Resources.r;
-                        clickedPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                        clickedPictureBox.Name = clickedPictureBox.Name.Replace("b", "SS");
-                    }
-                    // Move Starfish checker
-                    else if (player == "SF")
-                    {
-                        clickedPictureBox.Image = Properties.Resources.g;
-                        clickedPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                        clickedPictureBox.Name = clickedPictureBox.Name.Replace("b", "SF");
-                    }
-
-                    // Delete original checker
-                    pictureBoxes[x, y].Image = null;
-
+                    
                     // Are we killing another checker?
                     if (killCoord != "")
                     {
                         int killX = Convert.ToInt32(killCoord.Split(' ')[0]);
                         int killY = Convert.ToInt32(killCoord.Split(' ')[1]);
-                        string killPlayer = killCoord.Split(' ')[2];
 
-                        int originalX = Convert.ToInt32(clickedPictureBox.Name.Split(' ')[0]);
-                        int originalY = Convert.ToInt32(clickedPictureBox.Name.Split(' ')[1]);
-                        string originalPlayer = clickedPictureBox.Name.Split(' ')[2];
 
+                        if (clickedPictureBox.Image == pictureBoxes[x + (direction * 2), y + 2].Image)
+                        {
+                            pictureBoxes[killX, killY].Image = null;
+                        }
+                        else if (clickedPictureBox.Image == pictureBoxes[x + (direction * 2), y - 2].Image)
+                        {
+                            pictureBoxes[killX, killY].Image = null;
+                        }
+                        SwapPlayer();
+                        x = Convert.ToInt32(lastCheckerClicked.Split(' ')[0]);
+                        y = Convert.ToInt32(lastCheckerClicked.Split(' ')[1]);
+                        player = lastCheckerClicked.Split(' ')[2];
+                        rightMoveCoord = "";
+                        leftMoveCoord = "";
+
+
+                        // Move red checker
+                        if (player == "r")
+                        {
+                            clickedPictureBox.Image = Properties.Resources.r;
+                            clickedPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                            clickedPictureBox.Name = clickedPictureBox.Name.Replace("b", "r");
+                        }
+                        // Move green checker
+                        else if (player == "g")
+                        {
+                            clickedPictureBox.Image = Properties.Resources.g;
+                            clickedPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                            clickedPictureBox.Name = clickedPictureBox.Name.Replace("b", "g");
+                        }
+
+                        // Delete original checker 
+                        pictureBoxes[x, y].Image = null;
 
                         // If the coord has less than 2 spaces, there is no kill
-                        if (Math.Abs(originalY - y) < 2)
-                        {
-                            return;
-                        }
+
+                        //if (pictureBoxes[killX, killY].Image != null && x == x + 2)
+                        //{
+                        //    pictureBoxes[killX, killY].Image = null;
+                        //}
 
                         pictureBoxes[killX, killY].Image = null;
-                        if (killCoord.Split(' ')[2] == "SS")
+
+                        pictureBoxes[x, y].Image = null;
+                        if (killCoord.Split(' ')[2] == "r") red++;
+                        else green++;
+                        labelp1.Text = green + "";
+                        labelp2.Text = red + "";
+                        if (red >= 12)
                         {
-                            SSCount++;
-                        }
-                        else if (killCoord.Split(' ')[2] == "SF")
-                        {
-                            SFCount++;
-                        }
-                        SSDeathCount.Text = SSCount + "";
-                        SFDeathCount.Text = SFCount + "";
-                        if (SSCount >= 12)
-                        {
-                            labelw.Text += "You Win ";
+                            labelw.Text += "You Win " + Player2.Text;
                             W.Visible = true;
                         }
-                        else if (SFCount >= 12)
+                        else
+                        if (green >= 12)
                         {
-                            labelw.Text = "You Win ";
+                            labelw.Text = "You Win " + Player1.Text;
                             W.Visible = true;
                         }
                         killCoord = "";
                     }
                 }
+
+            }
         }
 
         private void SwapPlayer()
         {
-            if (checker == "SS")
+            if (color == "r")
             {
-                checker = "SF";
+                color = "g";
             }
             else
             {
-                checker = "SS";
+                color = "r";
             }
         }
 
@@ -250,8 +302,8 @@ namespace Assessment_Task_2
                     pictureBoxes[x, y].Size = new Size(100, 100);
                     left += 100;
                     pictureBoxes[x, y].Name = x + " " + y;
-                    if (x < (rows / 2) - 1 && pictureBoxes[x, y].BackColor == Color.CadetBlue) { pictureBoxes[x, y].Image = Properties.Resources.r; pictureBoxes[x, y].Name += " SS"; }
-                    else if (x > (rows / 2) && pictureBoxes[x, y].BackColor == Color.CadetBlue) { pictureBoxes[x, y].Image = Properties.Resources.g; pictureBoxes[x, y].Name += " SF"; }
+                    if (x < (rows / 2) - 1 && pictureBoxes[x, y].BackColor == Color.CadetBlue) { pictureBoxes[x, y].Image = Properties.Resources.r; pictureBoxes[x, y].Name += " r"; }
+                    else if (x > (rows / 2) && pictureBoxes[x, y].BackColor == Color.CadetBlue) { pictureBoxes[x, y].Image = Properties.Resources.g; pictureBoxes[x, y].Name += " g"; }
                     pictureBoxes[x, y].SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxes[x, y].MouseHover += Checker_MouseHover;
                     pictureBoxes[x, y].MouseLeave += Checker_MouseLeave;
@@ -261,6 +313,13 @@ namespace Assessment_Task_2
                 }
                 top += 100;
             }
+        }
+
+        private void SetupPlayButton()
+        {
+            //play.Click += Play_Click;
+            //play.MouseHover += Play_MouseHover;
+            //play.MouseLeave += Play_MouseLeave;
         }
 
         public void Why()
