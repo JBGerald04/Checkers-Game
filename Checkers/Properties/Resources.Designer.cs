@@ -19,7 +19,7 @@ namespace Assessment_Task_2.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -63,9 +63,9 @@ namespace Assessment_Task_2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap b {
+        internal static System.Drawing.Bitmap HLBlue {
             get {
-                object obj = ResourceManager.GetObject("b", resourceCulture);
+                object obj = ResourceManager.GetObject("HLBlue", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Assessment_Task_2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap g {
+        internal static System.Drawing.Bitmap SF {
             get {
-                object obj = ResourceManager.GetObject("g", resourceCulture);
+                object obj = ResourceManager.GetObject("SF", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,29 @@ namespace Assessment_Task_2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap r {
+        internal static System.Drawing.Bitmap SFQ {
             get {
-                object obj = ResourceManager.GetObject("r", resourceCulture);
+                object obj = ResourceManager.GetObject("SFQ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SS {
+            get {
+                object obj = ResourceManager.GetObject("SS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SSQ {
+            get {
+                object obj = ResourceManager.GetObject("SSQ", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
