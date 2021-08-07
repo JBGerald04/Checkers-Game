@@ -16,7 +16,6 @@ namespace Assessment_Task_2
         int rows, SFCount, SSCount;
         PictureBox[,] pictureBoxes;
         string checker = "SF", lastCheckerClicked = "", rightMoveCoord = "", leftMoveCoord = "", rightMoveCoordQ = "", leftMoveCoordQ = "", killCoord = "", checkerQ = "";//, killCoord2 = "";
-        private int _ticks;
 
         public Form1()
         {
@@ -62,14 +61,8 @@ namespace Assessment_Task_2
             GenerateCheckerBoard();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            // https://www.google.com/search?q=how+to+make+a+timer+in+c%23+winforms&rlz=1C1GCEA_enAU957AU957&oq=how+to+make+a+timer+in+c%23+winforms&aqs=chrome..69i57.16531j0j7&sourceid=chrome&{google:instantExtendedEnabledParameter}ie=UTF-8#kpvalbx=_2JEIYf2VJJm94-EP9rat6Ao44
-        }
-
         private void Checker_Click(object sender, EventArgs e)
         {
-            timer.Start();
             PictureBox clickedPictureBox = sender as PictureBox;
             if (clickedPictureBox.Image == null)
             {

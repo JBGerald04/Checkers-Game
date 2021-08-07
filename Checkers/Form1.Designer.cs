@@ -29,7 +29,6 @@ namespace Assessment_Task_2
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.G = new System.Windows.Forms.Panel();
             this.W = new System.Windows.Forms.Panel();
             this.LbPlay = new System.Windows.Forms.Label();
@@ -40,7 +39,6 @@ namespace Assessment_Task_2
             this.SFDeathCount = new System.Windows.Forms.Label();
             this.PlayerTurn = new System.Windows.Forms.PictureBox();
             this.labPlayerTurn = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.W.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -162,12 +160,6 @@ namespace Assessment_Task_2
             this.labPlayerTurn.TabIndex = 6;
             this.labPlayerTurn.Text = "Players Turn";
             // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -212,7 +204,6 @@ namespace Assessment_Task_2
         private System.Windows.Forms.Label LbPlay;
         private System.Windows.Forms.PictureBox PlayerTurn;
         private System.Windows.Forms.Label labPlayerTurn;
-        private System.Windows.Forms.Timer timer;
     }
 }
 
